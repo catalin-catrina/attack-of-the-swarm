@@ -1,0 +1,210 @@
+:root {
+  --color-dark: #1f1f1e;
+  --color-brown: #794412;
+  --color-orange: #f3a230;
+  --color-yellow: #f8c058;
+  --color-green: #427829;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: #fff;
+}
+
+.game__button {
+  font-size: 24px;
+  width: 250px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 0;
+  border-radius: 40px;
+}
+
+.game__button--attack {
+  background-color: var(--color-green);
+  color: #fff;
+}
+
+.game__button--reset {
+  background-color: var(--color-yellow);
+}
+
+.game {
+  padding: 40px 100px;
+}
+
+.game__title {
+  font-size: 48px;
+  color: var(--color-yellow);
+}
+
+.game__container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.game__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.game__content {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: flex-start; */
+
+  gap: 50px;
+}
+
+@media only screen and (max-width: 900px) {
+  .game__content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game__content__left--upper {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swarm-spy-status {
+    text-align: center;
+  }
+
+  .game__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.game__content__left {
+  flex: 1 1 40%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.game__content__left--upper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.game__player-info {
+  font-size: 36px;
+  color: var(--color-yellow);
+}
+
+.game__hit-info {
+  margin-top: 40px;
+  font-size: 24px;
+}
+
+.game__game-over {
+  margin-top: 20px;
+  font-size: 36px;
+  color: var(--color-green);
+}
+
+.game-rules {
+  font-size: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game__content__right {
+  flex: 1 1 60%;
+}
+
+.swarm-summary--upper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.swarm-title {
+  font-size: 36px;
+  color: var(--color-yellow);
+}
+
+.swarm-spy-status {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--color-green);
+}
+
+.swarm-summary--lower {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  /* grid-template-rows: repeat(9, 50px); */
+  gap: 30px;
+}
+
+.queen__container {
+  grid-column: 1 / span 2;
+}
+
+.queen,
+.worker,
+.drone {
+  background-color: var(--color-orange);
+  padding: 10px 24px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #000;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 1200px) {
+  .queen,
+  .worker,
+  .drone {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .queen,
+  .worker,
+  .drone {
+    font-size: 16px;
+  }
+}
+
+.queen {
+  width: 50%;
+  margin: 0 auto;
+}

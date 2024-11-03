@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Beezzz!</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="game">
+      <div class="game__container">
+        <header class="game__header">
+          <h1 class="game__title">Attack of the Swarm</h1>
+          <button class="game__button game__button--reset" id="reset-button">
+            Restart
+          </button>
+        </header>
+
+        <main class="game__main">
+          <div class="game__content">
+            <div class="game__content__left">
+              <div class="game__content__left--upper">
+                <div class="game__player-info">
+                  <p class="game__player-name">
+                    Player: <span id="player-name"></span>
+                  </p>
+                </div>
+                <div class="game__controls">
+                  <button
+                    class="game__button game__button--attack"
+                    id="hit-button"
+                  >
+                    Attack the Swarm!
+                  </button>
+                  <div class="game__hit-info" id="hit-info"></div>
+                  <div
+                    class="game__game-over"
+                    id="game-over"
+                    style="display: none"
+                  >
+                    <h2 class="game__game-over-message">
+                      Game over. You defeated the swarm and saved the world!
+                    </h2>
+                  </div>
+                </div>
+              </div>
+              <div class="game__content__left--lower">
+                <div class="game-rules">
+                  <p class="rules-title">The Rules:</p>
+                  <p class="first-pararagraph">
+                    A bee swarm has the following members:
+                  </p>
+                  <ul>
+                    <li>Queen – 1 bee - 100 HP</li>
+                    <li>Worker – 5 bees - 75 HP</li>
+                    <li>Drone – 8 bees - 50 HP</li>
+                  </ul>
+                  <p class="second-paragraph">
+                    The UI should have a “Hit” button. When clicked, you must
+                    pick a random swarm member (Queen, Worker or Drone) and do
+                    the following damage to it: queen – 8 damage, worker – 10
+                    damage, drone – 12 damage. When a bee remains without HP, it
+                    dies. When the Queen remains without HPs, all swarm members
+                    die.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="game__content__right">
+              <div class="game__bee-status" id="bee-status">
+                <div class="swarm-summary">
+                  <div class="swarm-summary--upper"></div>
+                  <div class="swarm-summary--lower"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/bundle.js"></script>
+  </body>
+</html>
