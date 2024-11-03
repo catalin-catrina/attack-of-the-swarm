@@ -1,13 +1,13 @@
-class Bee {
-  maxHp: number;
+abstract class Bee {
+  readonly maxHp: number;
+  readonly damage: number;
+  readonly type: string;
   hp: number;
-  damage: number;
-  type: string;
   alive: boolean;
 
   constructor(hp: number, damage: number, type: string) {
-    this.maxHp = hp;
     this.hp = hp;
+    this.maxHp = hp;
     this.damage = damage;
     this.type = type;
     this.alive = true;
@@ -28,4 +28,3 @@ class Bee {
 }
 
 export default Bee;
-

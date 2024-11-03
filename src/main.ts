@@ -5,8 +5,8 @@ import QueenBee from './queenBee';
 import WorkerBee from './workerBee';
 
 class Game {
-  playerName: string;
-  swarm: BeeSwarm;
+  private playerName: string;
+  private swarm: BeeSwarm;
 
   constructor(playerName: string) {
     this.playerName = playerName;
@@ -21,6 +21,11 @@ class Game {
       'hit-button'
     ) as HTMLButtonElement;
     hitButtonElement.addEventListener('click', () => this.attackSwarm());
+
+    const resetButton = document.getElementById(
+      'reset-button'
+    ) as HTMLButtonElement;
+    resetButton.addEventListener('click', () => this.resetGame());
   }
 
   attackSwarm(): void {
@@ -79,12 +84,11 @@ class Game {
   }
 
   renderUI(): void {
-    // Update player's name
-    const playerNameElement = document.getElementById(
-      'player-name'
-    ) as HTMLElement;
-    playerNameElement.textContent = this.playerName;
+    this.renderPlayerName();
+    this.renderSwarmSummary();
+  }
 
+  renderSwarmSummary(): void {
     const swarmSummaryUpperElement = document.querySelector(
       '.swarm-summary--upper'
     ) as HTMLElement;
@@ -94,39 +98,11 @@ class Game {
     swarmSummaryUpperElement.textContent = '';
     swarmSummaryLowerElement.textContent = '';
 
-    let aliveBeesHP = 0;
+    let totalAliveBeesHP = 0;
     const beeTypes = ['Queen', 'Worker', 'Drone'];
+
     beeTypes.forEach(type => {
-      const beesOfType = this.swarm.bees.filter(bee => bee.type == type);
-      if (beesOfType.length > 0) {
-        const aliveBees = beesOfType.filter(bee => bee.alive);
-        const aliveGroupHealth = beesOfType.reduce(
-          (prev, curr) => prev + curr.hp,
-          0
-        );
-        aliveBeesHP += aliveGroupHealth;
-        const beeClass = type.toLowerCase();
-
-        const beeTypeElement = document.createElement('div');
-        beeTypeElement.classList.add(`${beeClass}__container`);
-
-        // Bonus: details about the swarm
-        aliveBees.forEach((bee, index) => {
-          const beeInfoElement = document.createElement('div');
-          const textLeftElement = document.createElement('p');
-          const textRightElement = document.createElement('p');
-
-          beeInfoElement.classList.add(`${beeClass}`);
-          textLeftElement.textContent =
-            type === 'Queen' ? `${type}` : `${type} ${index + 1}`;
-          textRightElement.textContent = `HP: ${bee.hp} / ${bee.maxHp}`;
-
-          beeInfoElement.append(textLeftElement, textRightElement);
-          beeTypeElement.appendChild(beeInfoElement);
-        });
-
-        swarmSummaryLowerElement.appendChild(beeTypeElement);
-      }
+      totalAliveBeesHP += this.renderBeeGroup(type, swarmSummaryLowerElement);
     });
 
     const swarmTitleElement = document.createElement('p');
@@ -136,9 +112,49 @@ class Game {
     swarmStatusElement.classList.add('swarm-spy-status');
 
     swarmTitleElement.textContent = 'The Swarm! ';
-    swarmStatusElement.textContent = `Latest spy report on the The Swarm!’s health: ${aliveBeesHP} / ${this.swarm.totalHp}`;
+    swarmStatusElement.textContent = `Latest spy report on the The Swarm!’s health: ${totalAliveBeesHP} / ${this.swarm.totalHp}`;
 
     swarmSummaryUpperElement.append(swarmTitleElement, swarmStatusElement);
+  }
+
+  renderBeeGroup(type: string, swarmSummaryLowerElement: HTMLElement): number {
+    const beesOfType = this.swarm.bees.filter(bee => bee.type == type);
+    if (beesOfType.length === 0) return 0;
+
+    const aliveBees = beesOfType.filter(bee => bee.alive);
+    const totalGroupHealth = beesOfType.reduce(
+      (prev, curr) => prev + curr.hp,
+      0
+    );
+    const beeClass = type.toLowerCase();
+
+    const beeTypeElement = document.createElement('div');
+    beeTypeElement.classList.add(`${beeClass}__container`);
+
+    // Bonus: details about the swarm
+    aliveBees.forEach((bee, index) => {
+      const beeInfoElement = document.createElement('div');
+      const textLeftElement = document.createElement('p');
+      const textRightElement = document.createElement('p');
+
+      beeInfoElement.classList.add(`${beeClass}`);
+      textLeftElement.textContent =
+        type === 'Queen' ? `${type}` : `${type} ${index + 1}`;
+      textRightElement.textContent = `HP: ${bee.hp} / ${bee.maxHp}`;
+
+      beeInfoElement.append(textLeftElement, textRightElement);
+      beeTypeElement.appendChild(beeInfoElement);
+    });
+
+    swarmSummaryLowerElement.appendChild(beeTypeElement);
+    return totalGroupHealth;
+  }
+
+  renderPlayerName() {
+    const playerNameElement = document.getElementById(
+      'player-name'
+    ) as HTMLElement;
+    playerNameElement.textContent = this.playerName;
   }
 
   showGameOver(): void {
@@ -173,9 +189,4 @@ class Game {
 window.onload = () => {
   const playerName = 'Catalin';
   const game = new Game(playerName);
-
-  const resetButton = document.getElementById(
-    'reset-button'
-  ) as HTMLButtonElement;
-  resetButton.addEventListener('click', () => game.resetGame());
 };

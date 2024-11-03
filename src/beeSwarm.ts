@@ -38,7 +38,6 @@ export default class BeeSwarm {
     }
 
     // Check if all bees are dead
-    // as the requirement mentioned 'bees', the Queen is also a bee so I assumed that's what was meant
     const areBeesDead = this.bees.every(bee => !bee.alive);
     return areBeesDead;
   }
@@ -56,7 +55,7 @@ export default class BeeSwarm {
       this.bees.forEach(bee => (bee.alive = false));
     }
 
-    // return the hit bee and the damage dealt - will see if I find an use for it in the UI
+    // return the damaged bee and the damage dealt - will see if I find an use for it in the UI
     return { bee: randomBee, damage: randomBee.damage };
   }
 }
