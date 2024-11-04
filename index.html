@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Beezzz!</title>
+    <title>Attack of the Swarm!</title>
 
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -21,6 +21,10 @@
           <div class="game__content">
             <div class="game__content__left">
               <div class="game__content__left--upper">
+                <!-- <div id="player-input">
+                  <input type="text" id="player-name-input" placeholder="Enter your name" />
+                  <button id="start-game-button">Start Game</button>
+                </div> -->
                 <div class="game__player-info">
                   <p class="game__player-name">
                     Player: <span id="player-name"></span>
@@ -31,7 +35,7 @@
                     class="game__button game__button--attack"
                     id="hit-button"
                   >
-                    Attack the Swarm!
+                    Attack the Swarm! ⚔️
                   </button>
                   <div class="game__hit-info" id="hit-info"></div>
                   <div
@@ -71,8 +75,12 @@
             <div class="game__content__right">
               <div class="game__bee-status" id="bee-status">
                 <div class="swarm-summary">
-                  <div class="swarm-summary--upper"></div>
-                  <div class="swarm-summary--lower"></div>
+                  <div class="swarm-summary--upper">
+                    <!-- renderSwarmSummary() will display the info here-->
+                  </div>
+                  <div class="swarm-summary--lower">
+                    <!-- renderBeeGroup() will be called for each bee type and display the info here-->
+                  </div>
                 </div>
               </div>
             </div>

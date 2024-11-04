@@ -16,7 +16,8 @@ class Game {
     this.bindUIEvents();
   }
 
-  bindUIEvents(): void {
+  private bindUIEvents(): void {
+    // Bind click events for the 2 buttons (Attack / Reset)
     const hitButtonElement = document.getElementById(
       'hit-button'
     ) as HTMLButtonElement;
@@ -28,16 +29,20 @@ class Game {
     resetButton.addEventListener('click', () => this.resetGame());
   }
 
-  attackSwarm(): void {
+  private attackSwarm(): void {
+    // destructure the 2 object properties received by hitBeeSwarm method
+    // default to null values since it can also return null when game is over
     const { bee, damage } = this.swarm.hitBeeSwarm() ?? {
       bee: null,
       damage: null,
     };
 
+    // if an attack happened (i.e game is not over yet), display it in the UI
     if (bee && damage !== null) {
       this.showAttackDetails(bee, damage);
     }
 
+    // after every attack, save the new state, render the updated UI, and end the game if no more bees
     this.saveToLocalStorage();
     this.renderUI();
     if (this.swarm.isGameOver()) {
@@ -45,11 +50,11 @@ class Game {
     }
   }
 
-  saveToLocalStorage(): void {
+  private saveToLocalStorage(): void {
     localStorage.setItem('attackTheSwarmState', JSON.stringify(this.swarm));
   }
 
-  loadFromLocalStorage(): void {
+  private loadFromLocalStorage(): void {
     // Unexpectd problem I did not consider: when I get the data back from storage, they're just simple objects of no type and have no methods
     // Solution: For each bee saved in storage, instantiate a new Bee of that type to receive access to the take damage method
     // Finally, overwrite the newly created Bee (which will have default values) with the property values previously saved in storage, in order to resume the last saved state
@@ -78,17 +83,21 @@ class Game {
     }
   }
 
-  showAttackDetails(bee: Bee, damage: number): void {
+  private showAttackDetails(bee: Bee, damage: number): void {
     const hitInfoElement = document.getElementById('hit-info') as HTMLElement;
-    hitInfoElement.textContent = `You hit a ${bee.type} and did ${damage} damage!`;
+    hitInfoElement.textContent = bee.alive
+      ? `You hit a ${bee.type} and did ${damage} damage!`
+      : `You just killed a ${bee.type}!`;
   }
 
-  renderUI(): void {
+  private renderUI(): void {
     this.renderPlayerName();
     this.renderSwarmSummary();
   }
 
-  renderSwarmSummary(): void {
+  // display in UI the information about bees on the right
+  // for each bee type, call renderBeeGroup()
+  private renderSwarmSummary(): void {
     const swarmSummaryUpperElement = document.querySelector(
       '.swarm-summary--upper'
     ) as HTMLElement;
@@ -111,13 +120,16 @@ class Game {
     swarmTitleElement.classList.add('swarm-title');
     swarmStatusElement.classList.add('swarm-spy-status');
 
-    swarmTitleElement.textContent = 'The Swarm! ';
-    swarmStatusElement.textContent = `Latest spy report on the The Swarm!’s health: ${totalAliveBeesHP} / ${this.swarm.totalHp}`;
+    swarmTitleElement.textContent = 'The Swarm!';
+    swarmStatusElement.textContent = `Latest spy report 👀 on the The Swarm!’s health: ${totalAliveBeesHP} / ${this.swarm.totalHp}`;
 
     swarmSummaryUpperElement.append(swarmTitleElement, swarmStatusElement);
   }
 
-  renderBeeGroup(type: string, swarmSummaryLowerElement: HTMLElement): number {
+  private renderBeeGroup(
+    type: string,
+    swarmSummaryLowerElement: HTMLElement
+  ): number {
     const beesOfType = this.swarm.bees.filter(bee => bee.type == type);
     if (beesOfType.length === 0) return 0;
 
@@ -150,14 +162,14 @@ class Game {
     return totalGroupHealth;
   }
 
-  renderPlayerName() {
+  private renderPlayerName() {
     const playerNameElement = document.getElementById(
       'player-name'
     ) as HTMLElement;
     playerNameElement.textContent = this.playerName;
   }
 
-  showGameOver(): void {
+  private showGameOver(): void {
     const gameOverElement = document.getElementById('game-over') as HTMLElement;
     const hitButtonElement = document.getElementById(
       'hit-button'
@@ -166,14 +178,14 @@ class Game {
     hitButtonElement.disabled = true;
   }
 
-  resetGame(): void {
+  private resetGame(): void {
     this.swarm.initializeSwarm();
     this.saveToLocalStorage();
     this.renderUI();
     this.resetUI();
   }
 
-  resetUI(): void {
+  private resetUI(): void {
     const gameOverElement = document.getElementById('game-over') as HTMLElement;
     const hitButtonElement = document.getElementById(
       'hit-button'
@@ -187,6 +199,7 @@ class Game {
 }
 
 window.onload = () => {
+  // game req did not specifically mention it but I wanted to add an input and offer the player the possibility to enter his/her own name - no more time though
   const playerName = 'Catalin';
   const game = new Game(playerName);
 };
