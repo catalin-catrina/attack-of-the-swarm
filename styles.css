@@ -141,6 +141,7 @@ body {
 .swarm-spy-status {
   font-size: 24px;
   margin-bottom: 20px;
+  font-weight: bold;
   color: var(--color-green);
 }
 
@@ -169,6 +170,10 @@ body {
   justify-content: space-between;
 }
 
+.drone:last-of-type {
+  margin-bottom: 0;
+}
+
 .queen {
   width: 50%;
   margin: 0 auto;
@@ -179,11 +184,21 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0;
+  }
+
+  .game__content__left--lower {
+    display: none;
+  }
+
+  .game__game-over {
+    margin-bottom: 20px;
   }
 
   .game__content__left--upper {
     justify-content: center;
     align-items: center;
+    gap: 30px;
   }
 
   .swarm-spy-status {
