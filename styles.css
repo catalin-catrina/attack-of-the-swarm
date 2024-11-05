@@ -184,6 +184,10 @@ body {
   margin: 0 auto;
 }
 
+.swarm-spy-status {
+  text-align: center;
+}
+
 @media only screen and (max-width: 900px) {
   .game__content {
     flex-direction: column;
@@ -204,10 +208,6 @@ body {
     justify-content: center;
     align-items: center;
     gap: 30px;
-  }
-
-  .swarm-spy-status {
-    text-align: center;
   }
 
   .game__controls {
