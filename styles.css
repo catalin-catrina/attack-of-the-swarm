@@ -21,10 +21,12 @@
 body {
   background-color: var(--color-dark);
   color: #fff;
+  font-family: 'Poppins', sans-serif;
 }
 
 .game__button {
   font-size: 20px;
+  font-family: inherit;
   width: 250px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -99,6 +101,7 @@ body {
 
 .game__player-info {
   font-size: 36px;
+  font-weight: bold;
   color: var(--color-yellow);
 }
 
@@ -115,6 +118,7 @@ body {
 
 .game-rules {
   font-size: 20px;
+  color: var(--color-yellow);
 
   display: flex;
   flex-direction: column;
@@ -135,6 +139,7 @@ body {
 
 .swarm-title {
   font-size: 36px;
+  font-weight: bold;
   color: var(--color-yellow);
 }
 
@@ -212,6 +217,9 @@ body {
     align-items: center;
     text-align: center;
   }
+  .game__player-info {
+    text-align: center;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -222,7 +230,7 @@ body {
   }
 }
 
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: 1100px) {
   .queen,
   .worker,
   .drone {
